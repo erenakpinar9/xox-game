@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XOX — Karşılaşma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="arena" id="arena">
+
+  <!-- Arka plan izgara dekoru -->
+  <div class="grid-glow" aria-hidden="true"></div>
+
+  <!-- ============ MENÜ EKRANI ============ -->
+  <section class="screen screen--menu" id="menuScreen">
+    <div class="menu-card">
+
+      <div class="menu-card__head">
+        <div class="logo" aria-hidden="true">
+          <span class="logo__x">X</span><span class="logo__o">O</span><span class="logo__x">X</span>
+        </div>
+        <h1 class="menu-title">Karşılaşmaya hazır ol</h1>
+        <p class="menu-sub">Klasik XOX'un turnuva hissiyatlı hali. Bir varyant, rakip ve tema seç — ilk hamle sizin.</p>
+        <button type="button" class="theme-toggle" id="themeBtn" aria-label="Temayı değiştir" title="Temayı değiştir">
+          <span class="theme-toggle__swatch" id="themeSwatch"></span>
+        </button>
+      </div>
+
+      <div class="menu-columns">
+
+        <!-- SOL SÜTUN: Varyant seçimi -->
+        <div class="menu-col menu-col--left">
+          <div class="field-group field-group--variant">
+            <span class="field-label">Varyant</span>
+            <div class="variant-grid" id="variantGrid" role="radiogroup" aria-label="Oyun varyantı">
+              <button type="button" class="variant-card is-active" data-variant="classic" role="radio" aria-checked="true">
+                <span class="variant-card__title">Klasik</span>
+                <span class="variant-card__desc">3×3 tahta, 3 sıra</span>
+              </button>
+              <button type="button" class="variant-card" data-variant="grid4" role="radio" aria-checked="false">
+                <span class="variant-card__title">Büyük Tahta 4×4</span>
+                <span class="variant-card__desc">4×4 tahta, 4 sıra</span>
+              </button>
+              <button type="button" class="variant-card" data-variant="grid5" role="radio" aria-checked="false">
+                <span class="variant-card__title">Büyük Tahta 5×5</span>
+                <span class="variant-card__desc">5×5 tahta, 4 sıra</span>
+              </button>
+              <button type="button" class="variant-card" data-variant="vanish" role="radio" aria-checked="false">
+                <span class="variant-card__title">Sınırsız</span>
+                <span class="variant-card__desc">En eski taş kaybolur, beraberlik yok</span>
+              </button>
+              <button type="button" class="variant-card" data-variant="misere" role="radio" aria-checked="false">
+                <span class="variant-card__title">Misère</span>
+                <span class="variant-card__desc">3 sıra yapan kaybeder</span>
+              </button>
+              <button type="button" class="variant-card" data-variant="ultimate" role="radio" aria-checked="false">
+                <span class="variant-card__title">Ultimate XOX</span>
+                <span class="variant-card__desc">9 mini tahta, meta strateji</span>
+              </button>
+            </div>
+            <p class="variant-hint" id="variantHint">Tanıdık 3×3 tahta — sırayla oynayın, ilk 3 sırayı yapan kazanır.</p>
+          </div>
+        </div>
+
+        <!-- SAĞ SÜTUN: Rakip, oyuncular, zorluk, zamanlayıcı, başlat -->
+        <div class="menu-col menu-col--right">
+          <div class="field-group">
+            <span class="field-label">Rakip</span>
+            <div class="segmented" role="radiogroup" aria-label="Oyun modu">
+              <button type="button" class="segmented__btn is-active" data-mode="pvp" role="radio" aria-checked="true">İki oyuncu</button>
+              <button type="button" class="segmented__btn" data-mode="ai" role="radio" aria-checked="false">Bilgisayara karşı</button>
+            </div>
+          </div>
+
+          <div class="field-group players">
+            <label class="field">
+              <span class="field-label"><i class="dot dot--x"></i>1. oyuncu (X)</span>
+              <input type="text" id="nameX" maxlength="14" placeholder="Adını yaz" autocomplete="off">
+            </label>
+            <label class="field" id="fieldO">
+              <span class="field-label"><i class="dot dot--o"></i>2. oyuncu (O)</span>
+              <input type="text" id="nameO" maxlength="14" placeholder="Adını yaz" autocomplete="off">
+            </label>
+          </div>
+
+          <div class="field-group" id="difficultyGroup" hidden>
+            <span class="field-label">Zorluk</span>
+            <div class="segmented segmented--three" role="radiogroup" aria-label="Zorluk seviyesi">
+              <button type="button" class="segmented__btn" data-difficulty="easy" role="radio" aria-checked="false">Kolay</button>
+              <button type="button" class="segmented__btn is-active" data-difficulty="medium" role="radio" aria-checked="true">Orta</button>
+              <button type="button" class="segmented__btn" data-difficulty="hard" role="radio" aria-checked="false">Zor</button>
+            </div>
+          </div>
+
+          <!-- Zamanlayıcı -->
+          <div class="field-group">
+            <label class="switch-row" for="timerToggle">
+              <span class="switch-row__text">
+                <span class="field-label field-label--tight">Hamle zamanlayıcısı</span>
+                <span class="switch-row__sub">Süre dolarsa sıra rakibe geçer</span>
+              </span>
+              <span class="switch">
+                <input type="checkbox" id="timerToggle">
+                <span class="switch__track"><span class="switch__thumb"></span></span>
+              </span>
+            </label>
+            <div class="segmented segmented--three" id="timerSecondsGroup" role="radiogroup" aria-label="Süre" hidden>
+              <button type="button" class="segmented__btn" data-seconds="5">5 sn</button>
+              <button type="button" class="segmented__btn is-active" data-seconds="10">10 sn</button>
+              <button type="button" class="segmented__btn" data-seconds="15">15 sn</button>
+            </div>
+          </div>
+
+          <div class="menu-col__spacer"></div>
+
+          <button type="button" class="btn-primary" id="startBtn">Oyunu başlat</button>
+          <p class="menu-hint" id="menuHint">Skorlar cihazında saklanır — ana menüden istediğin an sıfırlayabilirsin.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OYUN EKRANI ============ -->
+  <section class="screen screen--game" id="gameScreen" hidden>
+
+    <header class="scoreboard">
+      <button class="score-pill score-pill--x" id="scoreXPill">
+        <span class="score-pill__mark">X</span>
+        <span class="score-pill__meta">
+          <span class="score-pill__name" id="scoreXName">Oyuncu 1</span>
+          <span class="score-pill__value" id="scoreXValue">0</span>
+        </span>
+      </button>
+
+      <div class="score-center">
+        <span class="score-center__label">Berabere</span>
+        <span class="score-center__value" id="scoreDraw">0</span>
+      </div>
+
+      <button class="score-pill score-pill--o" id="scoreOPill">
+        <span class="score-pill__meta score-pill__meta--right">
+          <span class="score-pill__name" id="scoreOName">Oyuncu 2</span>
+          <span class="score-pill__value" id="scoreOValue">0</span>
+        </span>
+        <span class="score-pill__mark">O</span>
+      </button>
+    </header>
+
+    <div class="turn-strip" id="turnStrip">
+      <span class="turn-strip__dot" id="turnDot"></span>
+      <span id="turnText">Sıra Oyuncu 1'de</span>
+      <span class="turn-strip__timer" id="turnTimer" hidden></span>
+    </div>
+
+    <!-- Sınırsız (vanish) mod rozeti -->
+    <p class="mode-badge" id="vanishBadge" hidden>Sınırsız Mod — beraberlik yok, en eski taş kaybolur</p>
+
+    <div class="board-wrap" id="boardWrap">
+      <div class="board" id="board" role="grid" aria-label="XOX tahtası"></div>
+      <svg class="win-line" id="winLine" viewBox="0 0 300 300" aria-hidden="true">
+        <line id="winLinePath" x1="0" y1="0" x2="0" y2="0" />
+      </svg>
+    </div>
+
+    <div class="game-controls">
+      <button type="button" class="btn-icon" id="undoBtn" aria-label="Geri al" title="Geri al">↶</button>
+      <button type="button" class="btn-ghost" id="soundBtn" aria-pressed="true">Ses açık</button>
+      <button type="button" class="btn-ghost" id="menuBtn">Ana menü</button>
+      <button type="button" class="btn-primary btn-primary--compact" id="restartBtn">Yeniden başlat</button>
+    </div>
+
+    <!-- Sonuç kaplaması -->
+    <div class="result-overlay" id="resultOverlay" hidden>
+      <div class="result-card">
+        <p class="result-eyebrow" id="resultEyebrow">El bitti</p>
+        <h2 class="result-title" id="resultTitle">Oyuncu 1 kazandı</h2>
+        <div class="result-actions">
+          <button type="button" class="btn-ghost" id="resultMenuBtn">Menü</button>
+          <button type="button" class="btn-primary" id="resultNextBtn">Sıradaki</button>
+        </div>
+      </div>
+      <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+    </div>
+
+  </section>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
