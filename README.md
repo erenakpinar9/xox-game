@@ -33,10 +33,6 @@ Ultimate'te performans için derinlik sınırlı sezgisel bir AI kullanılır
 - **Tema seçici** — menüdeki daire simgesine tıklayarak Neon (varsayılan), Sunset,
   Forest ve Mono paletleri arasında geçiş yapılabilir; seçim kaydedilir.
 
-Önceki sürümdeki kazanma çizgisi animasyonu, el çizimi X/O ikonları, konfeti,
-Web Audio ses efektleri ve erişilebilirlik desteği (klavye odağı,
-`prefers-reduced-motion`, ekran okuyucu etiketleri) tüm varyantlarda korunmuştur.
-
 ## Dosya yapısı
 
 ```
