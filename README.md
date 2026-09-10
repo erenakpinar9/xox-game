@@ -1,4 +1,4 @@
-# XOX — Arcade Edition v2
+# XOX Arcade Edition v2
 
 Klasik XOX (Tic-Tac-Toe) prototipinin, araştırılan varyantlarla genişletilmiş hâli.
 Temel motor ve görsel dil korunarak üstüne yeni oyun modları, zamanlayıcı, geri alma,
